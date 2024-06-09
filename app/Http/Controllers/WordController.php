@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Word;
 use Illuminate\Http\Request;
-use App\Http\Resources\WordResource;
+use Illuminate\Support\Facades\DB;
 
 class WordController extends Controller
 {
@@ -13,7 +13,8 @@ class WordController extends Controller
      */
     public function index()
     {
-        return WordResource::collection(Word::all());
+        $words = Word::sortable()->paginate(5);
+        return view('words', compact('words'));
     }
 
     /**
@@ -21,7 +22,8 @@ class WordController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Word::create($request->all());
+        return redirect()->route('words.index');
     }
 
     /**
@@ -29,7 +31,7 @@ class WordController extends Controller
      */
     public function show(Word $word)
     {
-        //
+        return view('words.show', compact('word'));
     }
 
     /**
@@ -37,7 +39,8 @@ class WordController extends Controller
      */
     public function update(Request $request, Word $word)
     {
-        //
+        $word->update($request->all());
+        return redirect()->route('words.index');
     }
 
     /**
@@ -45,6 +48,17 @@ class WordController extends Controller
      */
     public function destroy(Word $word)
     {
-        //
+        $word->delete();
+        return redirect()->route('words.index');
+    }
+
+    public static function getWordsByTheme()
+    {
+        return DB::table('themes')
+            ->join('relations', 'themes.id', '=', 'relations.theme_id')
+            ->join('words', 'words.id', '=', 'relations.word_id')
+            ->select('themes.theme', 'words.word')
+            ->orderBy('themes.theme', 'ASC')
+            ->get();
     }
 }

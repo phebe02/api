@@ -13,7 +13,8 @@ class ThemeController extends Controller
      */
     public function index()
     {
-        return ThemeResource::collection(Theme::all());
+        $themes = Theme::sortable()->paginate(5);
+        return view('themes', compact('themes'));
     }
 
     /**
@@ -21,7 +22,7 @@ class ThemeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return ThemeResource::make(Theme::create($request->all()));
     }
 
     /**

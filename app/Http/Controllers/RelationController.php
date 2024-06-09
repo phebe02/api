@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Relation;
 use Illuminate\Http\Request;
+use App\Http\Resources\RelationResource;
 
 class RelationController extends Controller
 {
@@ -12,7 +13,7 @@ class RelationController extends Controller
      */
     public function index()
     {
-        //
+        return RelationResource::collection(Relation::all());
     }
 
     /**

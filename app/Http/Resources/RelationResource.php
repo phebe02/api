@@ -14,6 +14,10 @@ class RelationResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        return parent::toArray($request);
+        return [
+            'word_id' => $this->word_id,
+            'theme_id' => $this->theme_id,
+
+        ];
     }
 }

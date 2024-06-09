@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('relations', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('word_id')->constrained('words');
-            $table->foreignId('theme_id')->constrained('themes');
+            $table->foreignId('word_id')->constrained('words')->onDelete('cascade');
+            $table->foreignId('theme_id')->constrained('themes')->onDelete('cascade');
             $table->timestamps();
-        });
+    });
     }
 
     /**
