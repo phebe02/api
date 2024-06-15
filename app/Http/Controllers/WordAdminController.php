@@ -6,6 +6,7 @@ use App\Models\Word;
 use App\Models\Theme;
 
 
+
 class WordAdminController extends Controller
 {
     public function update(Request $request, Word $word)
