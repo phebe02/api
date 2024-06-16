@@ -15,20 +15,25 @@
             @method('PUT')
 
             <div class="mb-4">
-                <label for="word" class="block text-gray-700 text-sm font-bold mb-2">word:</label>
+                <label for="word" class="block text-gray-700 text-sm font-bold mb-2">Word:</label>
                 <input type="text" name="word" id="word" value="{{ old('word', $word->word) }}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
                 @error('word')
                     <p class="text-red-500 text-xs italic">{{ $message }}</p>
                 @enderror
-                <select name="category[]" id="" multiple>
-    @foreach ($themes as $theme)
-        <option value="{{ $theme->id }}" 
-            {{ in_array($category->id, $selectedCategoryIds) ? 'selected' : '' }}>
-            {{ $theme->theme }}
-        </option>
-    @endforeach
-</select>
+            </div>
 
+            <div class="mb-4">
+                <label for="theme_id" class="block text-gray-700 text-sm font-bold mb-2">Themes:</label>
+                <select name="theme_id[]" id="theme_id" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" multiple required>
+                    @foreach ($themes as $theme)
+                        <option value="{{ $theme->id }}" {{ in_array($theme->id, $selectedThemeIds) ? 'selected' : '' }}>
+                            {{ $theme->theme }}
+                        </option>
+                    @endforeach
+                </select>
+                @error('theme_id')
+                    <p class="text-red-500 text-xs italic">{{ $message }}</p>
+                @enderror
             </div>
 
             <div class="flex items-center justify-between">

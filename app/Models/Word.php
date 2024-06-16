@@ -19,6 +19,6 @@ class Word extends Model
     ];
      public function themes()
     {
-        return $this->belongsToMany(Theme::class);
+        return $this->belongsToMany(Theme::class, 'ID396978_roadtripbingo.relations');
     }
 }
